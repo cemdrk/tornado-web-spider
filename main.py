@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 
 if sys.version_info.major == 2:
@@ -29,16 +30,17 @@ def get_links_from_url(url):
 
         urls = [urljoin(url, remove_fragment(new_url)) for new_url in get_links(html)]
 
-
     except Exception as ex:
         print('Exception: %s %s' % (ex, url))
         raise gen.Return([])
 
     raise gen.Return(urls)
 
+
 def remove_fragment(url):
     pure_url, frag = urldefrag(url)
     return pure_url
+
 
 def get_links(html):
     class URLSeeker(HTMLParser):
@@ -95,12 +97,12 @@ def main():
 
     assert fetching == fetched
 
-    print('Done in %d seconds, fetched %s URLs' % (time.time()-start, len(fetched)))
+    print('Done in %d seconds, fetched %s URLs' % (time.time() - start, len(fetched)))
 
 
 if __name__ == '__main__':
     import logging
+
     logging.basicConfig()
     ioloop = ioloop.IOLoop.current()
     ioloop.run_sync(main)
- 
